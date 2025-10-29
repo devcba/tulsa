@@ -127,4 +127,10 @@ return [
         ],
     ],
 
+    'rate_limits' => [
+        'api' => [
+            'per_minute' => (int) env('AUTH_API_RATE_LIMIT_PER_MINUTE', 60),
+        ],
+    ],
+
 ];
