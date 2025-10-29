@@ -59,6 +59,12 @@ La respuesta devuelve un objeto con las llaves `token`, `token_type`, `expires_a
 
 El valor de `expires_at` ayuda a los clientes a refrescar el token oportunamente. Una vez que expire, se debe solicitar uno nuevo repitiendo el flujo de login.
 
+### Cerrar sesión
+
+Para revocar un token activo, envía una petición `POST /auth/logout` con el mismo encabezado `Authorization: Bearer <token>` utilizado en las peticiones autenticadas. No es necesario un cuerpo en la solicitud.
+
+La respuesta confirma el cierre de sesión mediante un mensaje informativo. Después de recibirlo, elimina el token almacenado en el cliente para evitar que se use de nuevo. Si el usuario desea autenticarse otra vez, debe repetir el flujo de login para generar un nuevo token (con o sin `remember_me`, según corresponda).
+
 ## Rutas de ejemplo (`routes/api.php`)
 
 ```php

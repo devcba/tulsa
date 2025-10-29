@@ -116,6 +116,44 @@
         }
       }
     },
+    "/auth/logout": {
+      "post": {
+        "tags": [
+          "Autenticación"
+        ],
+        "summary": "Cerrar sesión",
+        "description": "Revoca el token actual del usuario autenticado.",
+        "operationId": "logout",
+        "security": [
+          {
+            "sanctum": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sesión cerrada correctamente.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthLogoutResponse"
+                },
+                "examples": {
+                  "logout": {
+                    "summary": "Cierre de sesión exitoso",
+                    "value": {
+                      "message": "Sesión cerrada correctamente."
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "No autenticado"
+          }
+        }
+      }
+    },
     "/user": {
       "get": {
         "tags": [
@@ -473,6 +511,18 @@
           "token_type",
           "expires_at",
           "user"
+        ]
+      },
+      "AuthLogoutResponse": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "Sesión cerrada correctamente."
+          }
+        },
+        "required": [
+          "message"
         ]
       },
       "UserResource": {
