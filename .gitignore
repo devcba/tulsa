@@ -1,0 +1,49 @@
+# Laravel & PHP artifacts
+/vendor/
+/storage/*.key
+/storage/framework/cache/*
+/storage/framework/sessions/*
+/storage/framework/views/*
+/storage/logs/*
+/bootstrap/cache/
+
+# Environment & configuration
+.env
+.env.*
+.env.testing
+Homestead.yaml
+Homestead.json
+.env.backup
+/.fleet/
+
+# Composer & PHPUnit
+composer.phar
+composer.lock
+.phpunit.result.cache
+phpunit.xml
+phpunit.xml.dist
+
+# Node / front-end tooling (even APIs often ship assets)
+/node_modules/
+/public/hot
+/public/storage
+npm-debug.log
+yarn-error.log
+pnpm-debug.log
+vite.config.js.timestamp-*
+
+# IDEs & OS-specific clutter
+.idea/
+/.vscode/
+*.code-workspace
+.DS_Store
+Thumbs.db
+
+# Coverage & reports
+coverage/
+reports/
+.php-cs-fixer.cache
+
+# Optional: Docker/local tooling
+docker-compose.override.yml
+/.docker/
