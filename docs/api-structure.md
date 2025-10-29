@@ -48,6 +48,17 @@ Esta estructura se basa en el esqueleto oficial de Laravel 12 con algunos ajuste
 3. Configura el archivo `config/cors.php` para permitir solicitudes desde el cliente deseado.
 4. Asegura que `routes/api.php` utilice el middleware `api` y, cuando corresponda, el middleware `auth:sanctum`.
 
+## Autenticación y flujo de inicio de sesión
+
+El endpoint `POST /auth/login` recibe las credenciales del usuario en formato JSON con los campos `email`, `password` y el flag opcional `remember_me`.
+
+- Si `remember_me` es `false` (valor por defecto) el token se genera con una expiración corta pensada para sesiones activas (aprox. 2 horas).
+- Si `remember_me` es `true`, la expiración se extiende a un periodo prolongado (30 días) para permitir que el usuario permanezca autenticado en dispositivos confiables.
+
+La respuesta devuelve un objeto con las llaves `token`, `token_type`, `expires_at` y `user`. El campo `token_type` será siempre `Bearer`, por lo que los clientes deben enviar el encabezado `Authorization: Bearer <token>` en todas las peticiones protegidas (`/user`, `/users`, etc.).
+
+El valor de `expires_at` ayuda a los clientes a refrescar el token oportunamente. Una vez que expire, se debe solicitar uno nuevo repitiendo el flujo de login.
+
 ## Rutas de ejemplo (`routes/api.php`)
 
 ```php
