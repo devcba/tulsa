@@ -117,4 +117,20 @@ return [
 
     'password_timeout' => env('AUTH_PASSWORD_TIMEOUT', 10800),
 
+    'personal_access_tokens' => [
+        'login' => [
+            'name' => env('AUTH_LOGIN_TOKEN_NAME', 'auth_token'),
+            'expires_in' => [
+                'default' => (int) env('AUTH_LOGIN_TOKEN_DEFAULT_HOURS', 2),
+                'remember' => (int) env('AUTH_LOGIN_TOKEN_REMEMBER_DAYS', 30),
+            ],
+        ],
+    ],
+
+    'rate_limits' => [
+        'api' => [
+            'per_minute' => (int) env('AUTH_API_RATE_LIMIT_PER_MINUTE', 60),
+        ],
+    ],
+
 ];
