@@ -1,0 +1,92 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Tulsa API",
+    "description": "Documentación interactiva para las APIs disponibles en el proyecto Tulsa.",
+    "version": "1.0.0"
+  },
+  "servers": [],
+  "tags": [
+    {
+      "name": "Usuario",
+      "description": "Operaciones relacionadas con el usuario autenticado"
+    }
+  ],
+  "paths": {
+    "/user": {
+      "get": {
+        "tags": [
+          "Usuario"
+        ],
+        "summary": "Obtener el usuario autenticado",
+        "description": "Devuelve la información del usuario autenticado usando Sanctum.",
+        "operationId": "getAuthenticatedUser",
+        "security": [
+          {
+            "sanctum": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Usuario obtenido correctamente.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "No autenticado"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "sanctum": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "Token"
+      }
+    },
+    "schemas": {
+      "User": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "example": 1
+          },
+          "name": {
+            "type": "string",
+            "example": "Ada Lovelace"
+          },
+          "email": {
+            "type": "string",
+            "format": "email",
+            "example": "ada@example.com"
+          },
+          "email_verified_at": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "date-time",
+            "example": "2024-01-01T12:00:00Z"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      }
+    }
+  }
+}

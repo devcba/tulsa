@@ -21,6 +21,12 @@ Laravel is a web application framework with expressive, elegant syntax. We belie
 
 Laravel is accessible, powerful, and provides tools required for large, robust applications.
 
+## API Documentation
+
+- Visita [`/docs`](http://localhost:8000/docs) mientras la aplicación está en ejecución para interactuar con Swagger UI y probar las APIs disponibles.
+- La especificación base en formato OpenAPI se encuentra en `resources/docs/openapi.json` y puede ajustarse para describir nuevos endpoints.
+- La URL del servidor de la API se define dinámicamente en tiempo de ejecución para que las peticiones se dirijan al entorno actual.
+
 ## Learning Laravel
 
 Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
