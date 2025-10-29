@@ -8,6 +8,10 @@
   "servers": [],
   "tags": [
     {
+      "name": "Autenticación",
+      "description": "Operaciones relacionadas con el inicio de sesión y gestión de tokens"
+    },
+    {
       "name": "Usuario",
       "description": "Operaciones relacionadas con el usuario autenticado"
     },
@@ -17,6 +21,101 @@
     }
   ],
   "paths": {
+    "/auth/login": {
+      "post": {
+        "tags": [
+          "Autenticación"
+        ],
+        "summary": "Iniciar sesión",
+        "description": "Genera un token de acceso para el usuario autenticado.",
+        "operationId": "login",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AuthLoginRequest"
+              },
+              "examples": {
+                "sesion_estandar": {
+                  "summary": "Inicio de sesión estándar",
+                  "value": {
+                    "email": "ada@example.com",
+                    "password": "secret123",
+                    "remember_me": false
+                  }
+                },
+                "sesion_recordarme": {
+                  "summary": "Inicio de sesión con \"recordarme\"",
+                  "value": {
+                    "email": "ada@example.com",
+                    "password": "secret123",
+                    "remember_me": true
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Inicio de sesión exitoso.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthLoginResponse"
+                },
+                "examples": {
+                  "sesion_estandar": {
+                    "summary": "Token temporal",
+                    "value": {
+                      "token": "1|standard-session-token",
+                      "token_type": "Bearer",
+                      "expires_at": "2024-01-01T12:00:00Z",
+                      "user": {
+                        "id": 1,
+                        "name": "Ada Lovelace",
+                        "email": "ada@example.com",
+                        "created_at": "2023-12-15T08:00:00Z",
+                        "updated_at": "2023-12-20T10:30:00Z"
+                      }
+                    }
+                  },
+                  "sesion_recordarme": {
+                    "summary": "Token extendido con \"recordarme\"",
+                    "value": {
+                      "token": "1|remember-me-token",
+                      "token_type": "Bearer",
+                      "expires_at": "2024-02-01T12:00:00Z",
+                      "user": {
+                        "id": 1,
+                        "name": "Ada Lovelace",
+                        "email": "ada@example.com",
+                        "created_at": "2023-12-15T08:00:00Z",
+                        "updated_at": "2023-12-20T10:30:00Z"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Credenciales inválidas"
+          },
+          "422": {
+            "description": "Error de validación",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/user": {
       "get": {
         "tags": [
@@ -326,6 +425,56 @@
       }
     },
     "schemas": {
+      "AuthLoginRequest": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "format": "email",
+            "example": "ada@example.com"
+          },
+          "password": {
+            "type": "string",
+            "minLength": 8,
+            "example": "secret123"
+          },
+          "remember_me": {
+            "type": "boolean",
+            "default": false
+          }
+        },
+        "required": [
+          "email",
+          "password"
+        ]
+      },
+      "AuthLoginResponse": {
+        "type": "object",
+        "properties": {
+          "token": {
+            "type": "string",
+            "example": "1|standard-session-token"
+          },
+          "token_type": {
+            "type": "string",
+            "example": "Bearer"
+          },
+          "expires_at": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2024-01-01T12:00:00Z"
+          },
+          "user": {
+            "$ref": "#/components/schemas/UserResource"
+          }
+        },
+        "required": [
+          "token",
+          "token_type",
+          "expires_at",
+          "user"
+        ]
+      },
       "UserResource": {
         "type": "object",
         "properties": {

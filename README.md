@@ -26,6 +26,7 @@ Laravel is accessible, powerful, and provides tools required for large, robust a
 - Visita [`/docs`](http://localhost:8000/docs) mientras la aplicación está en ejecución para interactuar con Swagger UI y probar las APIs disponibles.
 - La especificación base en formato OpenAPI se encuentra en `resources/docs/openapi.json` y puede ajustarse para describir nuevos endpoints.
 - La URL del servidor de la API se define dinámicamente en tiempo de ejecución para que las peticiones se dirijan al entorno actual.
+- Consulta la sección [Autenticación y flujo de inicio de sesión](docs/api-structure.md#autenticación-y-flujo-de-inicio-de-sesión) para entender cómo obtener y utilizar el token de acceso.
 
 ## Learning Laravel
 
